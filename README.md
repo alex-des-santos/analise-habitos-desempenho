@@ -4,7 +4,7 @@ Segue uma sugestão de novo conteúdo para o README:
 
 ---
 
-# Análise de Hábitos e Desempenho
+# Análise de Hábitos e Desempenho de estudantes do Kaggle
 
 Este repositório contém materiais, códigos e análises relacionados ao estudo dos hábitos e seu impacto no desempenho. O objetivo é explorar dados, identificar padrões e propor insights utilizando técnicas de ciência de dados.
 
