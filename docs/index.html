@@ -73,6 +73,7 @@
             <button data-tab="study_habits" class="tab-button text-sm md:text-base px-4 py-2 border-b-2 border-transparent hover:border-teal-500 hover:text-teal-600 rounded-t-md">Hábitos de Estudo</button>
             <button data-tab="lifestyle" class="tab-button text-sm md:text-base px-4 py-2 border-b-2 border-transparent hover:border-teal-500 hover:text-teal-600 rounded-t-md">Estilo de Vida</button>
             <button data-tab="predictive" class="tab-button text-sm md:text-base px-4 py-2 border-b-2 border-transparent hover:border-teal-500 hover:text-teal-600 rounded-t-md">Análise Preditiva</button>
+            <button data-tab="simulator" class="tab-button text-sm md:text-base px-4 py-2 border-b-2 border-transparent hover:border-teal-500 hover:text-teal-600 rounded-t-md">Simulador</button>
             <button data-tab="conclusions" class="tab-button text-sm md:text-base px-4 py-2 border-b-2 border-transparent hover:border-teal-500 hover:text-teal-600 rounded-t-md">Conclusões</button>
         </nav>
 
@@ -218,6 +219,106 @@
                 </div>
             </section>
 
+            <section id="simulator" class="tab-content hidden bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold text-teal-600 mb-4">Simulador Interativo 'What-If'</h2>
+                <p class="mb-6 text-slate-600">Experimente com diferentes hábitos e características para ver uma estimativa da pontuação no exame, baseada em um modelo de Regressão Linear. Lembre-se que este é um modelo simplificado para interatividade web e os resultados podem diferir do modelo Random Forest mais preciso discutido na análise principal.</p>
+            
+                <div id="simulator_inputs" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 mb-6">
+                    <!-- Numerical Inputs -->
+                    <div>
+                        <label for="sim_age" class="block text-sm font-medium text-slate-700 mb-1">Idade (anos): <span id="sim_age_value" class="font-semibold text-teal-700">20</span></label>
+                        <input type="range" id="sim_age" name="sim_age" min="17" max="24" step="1" value="20" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                    </div>
+                    <div>
+                        <label for="sim_study_hours_per_day" class="block text-sm font-medium text-slate-700 mb-1">Horas de Estudo/Dia: <span id="sim_study_hours_per_day_value" class="font-semibold text-teal-700">4.0</span></label>
+                        <input type="range" id="sim_study_hours_per_day" name="sim_study_hours_per_day" min="0" max="9" step="0.1" value="4" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                    </div>
+                    <div>
+                        <label for="sim_social_media_hours" class="block text-sm font-medium text-slate-700 mb-1">Horas em Mídias Sociais/Dia: <span id="sim_social_media_hours_value" class="font-semibold text-teal-700">2.0</span></label>
+                        <input type="range" id="sim_social_media_hours" name="sim_social_media_hours" min="0" max="6" step="0.1" value="2" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                    </div>
+                    <div>
+                        <label for="sim_netflix_hours" class="block text-sm font-medium text-slate-700 mb-1">Horas em Streaming/Dia: <span id="sim_netflix_hours_value" class="font-semibold text-teal-700">2.0</span></label>
+                        <input type="range" id="sim_netflix_hours" name="sim_netflix_hours" min="0" max="6" step="0.1" value="2" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                    </div>
+                    <div>
+                        <label for="sim_attendance_percentage" class="block text-sm font-medium text-slate-700 mb-1">Frequência nas Aulas (%): <span id="sim_attendance_percentage_value" class="font-semibold text-teal-700">80</span></label>
+                        <input type="range" id="sim_attendance_percentage" name="sim_attendance_percentage" min="50" max="100" step="1" value="80" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                    </div>
+                    <div>
+                        <label for="sim_sleep_hours" class="block text-sm font-medium text-slate-700 mb-1">Horas de Sono/Noite: <span id="sim_sleep_hours_value" class="font-semibold text-teal-700">7.0</span></label>
+                        <input type="range" id="sim_sleep_hours" name="sim_sleep_hours" min="4" max="10" step="0.1" value="7" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                    </div>
+                    <div>
+                        <label for="sim_exercise_frequency" class="block text-sm font-medium text-slate-700 mb-1">Frequência de Exercícios (dias/semana): <span id="sim_exercise_frequency_value" class="font-semibold text-teal-700">3</span></label>
+                        <input type="range" id="sim_exercise_frequency" name="sim_exercise_frequency" min="0" max="7" step="1" value="3" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                    </div>
+                    <div>
+                        <label for="sim_mental_health_rating" class="block text-sm font-medium text-slate-700 mb-1">Saúde Mental (1-10): <span id="sim_mental_health_rating_value" class="font-semibold text-teal-700">5</span></label>
+                        <input type="range" id="sim_mental_health_rating" name="sim_mental_health_rating" min="1" max="10" step="1" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                    </div>
+            
+                    <!-- Categorical Inputs -->
+                    <div>
+                        <label for="sim_gender" class="block text-sm font-medium text-slate-700">Gênero:</label>
+                        <select id="sim_gender" name="sim_gender" class="mt-1 block w-full p-2 border border-slate-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+                            <option value="Female">Feminino</option>
+                            <option value="Male">Masculino</option>
+                            <option value="Other">Outro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sim_part_time_job" class="block text-sm font-medium text-slate-700">Trabalho em Meio Período?</label>
+                        <select id="sim_part_time_job" name="sim_part_time_job" class="mt-1 block w-full p-2 border border-slate-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+                            <option value="No">Não</option>
+                            <option value="Yes">Sim</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sim_diet_quality" class="block text-sm font-medium text-slate-700">Qualidade da Dieta:</label>
+                        <select id="sim_diet_quality" name="sim_diet_quality" class="mt-1 block w-full p-2 border border-slate-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+                            <option value="Poor">Ruim</option>
+                            <option value="Fair" selected>Razoável</option>
+                            <option value="Good">Boa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sim_parental_education_level" class="block text-sm font-medium text-slate-700">Nível Educacional dos Pais:</label>
+                        <select id="sim_parental_education_level" name="sim_parental_education_level" class="mt-1 block w-full p-2 border border-slate-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+                            <option value="None">Nenhum</option>
+                            <option value="High School" selected>Ensino Médio</option>
+                            <option value="Bachelor">Graduação</option>
+                            <option value="Master">Mestrado/Doutorado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sim_internet_quality" class="block text-sm font-medium text-slate-700">Qualidade da Internet em Casa:</label>
+                        <select id="sim_internet_quality" name="sim_internet_quality" class="mt-1 block w-full p-2 border border-slate-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+                            <option value="Poor">Ruim</option>
+                            <option value="Average" selected>Média</option>
+                            <option value="Good">Boa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sim_extracurricular_participation" class="block text-sm font-medium text-slate-700">Participa de Atividades Extracurriculares?</label>
+                        <select id="sim_extracurricular_participation" name="sim_extracurricular_participation" class="mt-1 block w-full p-2 border border-slate-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+                            <option value="No" selected>Não</option>
+                            <option value="Yes">Sim</option>
+                        </select>
+                    </div>
+                </div>
+            
+                <div class="mt-8 text-center">
+                    <button id="sim_predict_button" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-75 transition duration-150 ease-in-out text-lg">
+                        Prever Pontuação
+                    </button>
+                </div>
+            
+                <div id="sim_predicted_score_container" class="mt-8 p-6 bg-orange-100 rounded-lg shadow text-center">
+                    <h3 id="sim_predicted_score" class="text-2xl md:text-3xl font-bold text-teal-700">Pontuação Estimada: --</h3>
+                </div>
+            </section>
+
             <section id="conclusions" class="tab-content hidden bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold text-teal-600 mb-4">7. Principais Descobertas, Conclusões e Próximos Passos</h2>
                 <p class="mb-4">Esta análise do dataset sintético "Student Habits vs Academic Performance" permitiu aplicar diversas técnicas de ciência de dados. As descobertas (simuladas) sugerem que hábitos de estudo, bem-estar e saúde mental estão associados ao desempenho acadêmico.</p>
@@ -341,7 +442,8 @@
                         if (target === 'study_habits') initStudyHabitsCharts();
                         if (target === 'lifestyle') initLifestyleCharts();
                         if (target === 'predictive') initPredictiveCharts();
-
+                        // Note: Simulator tab content is static HTML for now, no specific JS init on tab click needed yet.
+                        // if (target === 'simulator') ; 
                     } else {
                         content.classList.add('hidden');
                     }
@@ -685,6 +787,155 @@
             initOverviewCharts(); 
         });
 
+        // --- Interactive Simulator Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const simulatorInputs = {
+                age: document.getElementById('sim_age'),
+                study_hours_per_day: document.getElementById('sim_study_hours_per_day'),
+                social_media_hours: document.getElementById('sim_social_media_hours'),
+                netflix_hours: document.getElementById('sim_netflix_hours'),
+                attendance_percentage: document.getElementById('sim_attendance_percentage'),
+                sleep_hours: document.getElementById('sim_sleep_hours'),
+                exercise_frequency: document.getElementById('sim_exercise_frequency'),
+                mental_health_rating: document.getElementById('sim_mental_health_rating'),
+                gender: document.getElementById('sim_gender'),
+                part_time_job: document.getElementById('sim_part_time_job'),
+                diet_quality: document.getElementById('sim_diet_quality'),
+                parental_education_level: document.getElementById('sim_parental_education_level'),
+                internet_quality: document.getElementById('sim_internet_quality'),
+                extracurricular_participation: document.getElementById('sim_extracurricular_participation')
+            };
+
+            const simulatorValueSpans = {
+                age: document.getElementById('sim_age_value'),
+                study_hours_per_day: document.getElementById('sim_study_hours_per_day_value'),
+                social_media_hours: document.getElementById('sim_social_media_hours_value'),
+                netflix_hours: document.getElementById('sim_netflix_hours_value'),
+                attendance_percentage: document.getElementById('sim_attendance_percentage_value'),
+                sleep_hours: document.getElementById('sim_sleep_hours_value'),
+                exercise_frequency: document.getElementById('sim_exercise_frequency_value'),
+                mental_health_rating: document.getElementById('sim_mental_health_rating_value')
+            };
+
+            const predictButton = document.getElementById('sim_predict_button');
+            const predictedScoreDisplay = document.getElementById('sim_predicted_score');
+
+            // 1. Update slider value displays
+            for (const key in simulatorValueSpans) {
+                if (simulatorInputs[key] && simulatorInputs[key].type === 'range') {
+                    simulatorInputs[key].addEventListener('input', (event) => {
+                        simulatorValueSpans[key].textContent = parseFloat(event.target.value).toFixed(simulatorInputs[key].step >= 1 ? 0 : 1);
+                    });
+                }
+            }
+            
+            // 2. Prediction Logic
+            // These parameters MUST match the output from the Jupyter Notebook 04_Predictive_Modeling.ipynb
+            const MODEL_PARAMS = {
+                INTERCEPT: 70.10991347734646,
+                COEFFICIENTS: {
+                    "num__age": 0.03003910828682918,
+                    "num__study_hours_per_day": 2.8088997679982917,
+                    "num__social_media_hours": -0.6177247000890449,
+                    "num__netflix_hours": -0.01800038330320132,
+                    "num__attendance_percentage": 0.1608070339782499,
+                    "num__sleep_hours": 0.5195111697000953,
+                    "num__exercise_frequency": 0.13017761486412497,
+                    "num__mental_health_rating": 1.0010904168087196,
+                    "cat__gender_Male": -0.010576186457078907,
+                    "cat__gender_Other": 0.1915259483156042,
+                    "cat__part_time_job_Yes": -0.2908031486586012,
+                    "cat__diet_quality_Good": 0.8722640001136023,
+                    "cat__diet_quality_Poor": -1.0001240066034222,
+                    "cat__parental_education_level_High School": 0.3708088440788841,
+                    "cat__parental_education_level_Master": 0.9912461880851497,
+                    "cat__parental_education_level_None": 0.02927333608068159,
+                    "cat__internet_quality_Good": 1.2905420020819505,
+                    "cat__internet_quality_Poor": -1.448376691689821,
+                    "cat__extracurricular_participation_Yes": 0.4140934890852299
+                },
+                NUMERICAL_PARAMS: {
+                    "age": { mean: 20.5420, std_dev: 2.274175 }, // Corrected from notebook image
+                    "study_hours_per_day": { mean: 4.5150, std_dev: 2.594885 }, // Corrected
+                    "social_media_hours": { mean: 2.4820, std_dev: 1.720061 }, // Corrected
+                    "netflix_hours": { mean: 2.5190, std_dev: 1.708519 },      // Corrected
+                    "attendance_percentage": { mean: 74.9980, std_dev: 14.639490 }, // Corrected
+                    "sleep_hours": { mean: 7.0280, std_dev: 1.713537 },       // Corrected
+                    "exercise_frequency": { mean: 2.5030, std_dev: 1.720786 }, // Corrected
+                    "mental_health_rating": { mean: 5.5000, std_dev: 2.868714 } // Corrected (mean was 5.5, not 5.5 mental_health_rating)
+                },
+                CATEGORICAL_MAP: {
+                    "gender": { categories: ["Female", "Male", "Other"], dropped: "Female" },
+                    "part_time_job": { categories: ["No", "Yes"], dropped: "No" },
+                    "diet_quality": { categories: ["Fair", "Good", "Poor"], dropped: "Fair" }, // Order from notebook: Fair, Good, Poor. 'Fair' is first.
+                    "parental_education_level": { categories: ["Bachelor", "High School", "Master", "None"], dropped: "Bachelor" }, // Order: Bachelor, High School, Master, None. 'Bachelor' is first.
+                    "internet_quality": { categories: ["Average", "Good", "Poor"], dropped: "Average" }, // Order: Average, Good, Poor. 'Average' is first.
+                    "extracurricular_participation": { categories: ["No", "Yes"], dropped: "No" }
+                },
+                FINAL_FEATURE_ORDER: [
+                    "num__age", "num__study_hours_per_day", "num__social_media_hours", "num__netflix_hours",
+                    "num__attendance_percentage", "num__sleep_hours", "num__exercise_frequency", "num__mental_health_rating",
+                    "cat__gender_Male", "cat__gender_Other", "cat__part_time_job_Yes",
+                    "cat__diet_quality_Good", "cat__diet_quality_Poor",
+                    "cat__parental_education_level_High School", "cat__parental_education_level_Master", "cat__parental_education_level_None",
+                    "cat__internet_quality_Good", "cat__internet_quality_Poor",
+                    "cat__extracurricular_participation_Yes"
+                ]
+            };
+
+            function predictScore() {
+                const processedFeatures = {};
+
+                // Process Numerical Features
+                for (const key in MODEL_PARAMS.NUMERICAL_PARAMS) {
+                    const value = parseFloat(simulatorInputs[key].value);
+                    const params = MODEL_PARAMS.NUMERICAL_PARAMS[key];
+                    processedFeatures[`num__${key}`] = (value - params.mean) / params.std_dev;
+                }
+
+                // Process Categorical Features
+                for (const key in MODEL_PARAMS.CATEGORICAL_MAP) {
+                    const selectedValue = simulatorInputs[key].value;
+                    const mapInfo = MODEL_PARAMS.CATEGORICAL_MAP[key];
+                    
+                    mapInfo.categories.forEach(category => {
+                        if (category === mapInfo.dropped) return; // Skip the dropped category
+
+                        const featureName = `cat__${key}_${category}`;
+                        processedFeatures[featureName] = (selectedValue === category) ? 1 : 0;
+                    });
+                }
+                
+                // Calculate Prediction
+                let prediction = MODEL_PARAMS.INTERCEPT;
+                MODEL_PARAMS.FINAL_FEATURE_ORDER.forEach(featureName => {
+                    const featureValue = processedFeatures[featureName];
+                    const coefficient = MODEL_PARAMS.COEFFICIENTS[featureName];
+                    
+                    if (typeof featureValue === 'undefined' || typeof coefficient === 'undefined') {
+                        console.warn(`Warning: Missing value or coefficient for feature: ${featureName}. Value: ${featureValue}, Coeff: ${coefficient}`);
+                         // If a feature somehow wasn't processed or has no coefficient, it won't contribute.
+                         // This check helps in debugging potential mismatches in feature names.
+                    } else {
+                        prediction += featureValue * coefficient;
+                    }
+                });
+
+                // Display Prediction (clamped between 0 and 100, as exam scores usually are)
+                const finalScore = Math.max(0, Math.min(100, prediction));
+                predictedScoreDisplay.textContent = `Pontuação Estimada: ${finalScore.toFixed(2)}`;
+            }
+
+            // 3. Attach Event Listener
+            if (predictButton) {
+                predictButton.addEventListener('click', predictScore);
+            } else {
+                console.error("Predict button not found!");
+            }
+            
+            // Initialize prediction on page load with default values
+             predictScore();
+        });
     </script>
 </body>
 </html>
