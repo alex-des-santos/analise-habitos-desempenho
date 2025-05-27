@@ -7,9 +7,9 @@ Este repositório contém materiais, códigos e análises relacionados ao estudo
 
 A proposta deste projeto é investigar como diferentes hábitos podem influenciar o desempenho em diversas áreas, utilizando dados reais ou simulados, notebooks interativos e visualizações.
 
-## Veja o projeto publicado
+## Veja o projeto publicado  
 
-Acesse: https://alex-des-santos.github.io/analise-habitos-desempenho/
+<a href="https://alex-des-santos.github.io/analise-habitos-desempenho/" target="_blank">Acesse: https://alex-des-santos.github.io/analise-habitos-desempenho/</a>
 
 ## Conteúdo
 
