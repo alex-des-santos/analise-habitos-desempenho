@@ -9,7 +9,7 @@ A proposta deste projeto é investigar como diferentes hábitos podem influencia
 
 ## Veja o projeto publicado  
 
-<a href="https://alex-des-santos.github.io/analise-habitos-desempenho/" target="_blank">Acesse: https://alex-des-santos.github.io/analise-habitos-desempenho/</a>
+Acesse: <a href="https://alex-des-santos.github.io/analise-habitos-desempenho/" target="_blank">https://alex-des-santos.github.io/analise-habitos-desempenho/</a>
 
 ## Conteúdo
 
