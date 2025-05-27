@@ -1,8 +1,3 @@
-O conteúdo atual do README ainda se refere ao portfólio pessoal. Recomendo atualizar o README para refletir o novo propósito do repositório, que agora é sobre "analise-habitos-desempenho".
-
-Segue uma sugestão de novo conteúdo para o README:
-
----
 
 # Análise de Hábitos e Desempenho de estudantes do Kaggle
 
@@ -11,6 +6,10 @@ Este repositório contém materiais, códigos e análises relacionados ao estudo
 ## Sobre o Projeto
 
 A proposta deste projeto é investigar como diferentes hábitos podem influenciar o desempenho em diversas áreas, utilizando dados reais ou simulados, notebooks interativos e visualizações.
+
+## Veja o projeto publicado
+
+Acesse: https://alex-des-santos.github.io/analise-habitos-desempenho/
 
 ## Conteúdo
 
